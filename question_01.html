@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>对比移动端的rem和px之间的解决方案</title>
+  <meta charset="utf-8">
+  <!-- <meta content="yes" name="apple-mobile-web-app-capable"> -->
+  <!-- <meta content="yes" name="apple-touch-fullscreen"> -->
+  <!-- <meta content="telephone=no,email=no" name="format-detection"> -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+  <!-- <meta name="flexible" content="initial-dpr=2, maximum-dpr=2" /> -->
+  <script src='./js/taobao.flexible.js'></script>
+  <!-- <script src='./js/ydui.flexible.js'></script> -->
+</head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      text-align: center;
+    }
+    .box {
+      width: 375px;
+      height: 200px;
+      font-size: 40px;
+      text-align: center;
+      color: #fff;
+      line-height: 200px;
+      background: #f00;
+    }
+    .half {
+      width: 5rem;
+      background: orange;
+      font-size: 32px;
+    }
+    .box2 {
+      width: 9rem;
+      height: 1rem;
+      line-height: 1rem;
+      font-size: 40px;
+      text-align: center;
+      color: #fff;
+      background: green;
+    }
+    .rem1 {
+      width: 1rem;
+    }
+    .rem2 {
+      width: 2rem;
+    }
+    .rem3 {
+      width: 3rem;
+    }
+    .rem4 {
+      width: 4rem;
+    }
+    .rem5 {
+      width: 5rem;
+    }
+    .rem6 {
+      width: 6rem;
+    }
+    .rem7 {
+      width: 7rem;
+    }
+    .rem8 {
+      width: 8rem;
+    }
+    .rem9 {
+      width: 9rem;
+    }
+    .rem10 {
+      width: 10rem;
+    }
+    .box3 {
+      width: 7.5rem;
+      height: 100px;
+      line-height: 100px;
+      font-size: 40px;
+      text-align: center;
+      color: #fff;
+      background: orange;
+    }
+    .px {
+      font-size: 12px;
+      background: #f2f2f2;
+    }
+    .rem {
+      font-size: 1rem;
+      background: #ccc;
+    }
+    .border {
+      height: 5rem;
+      width: 5rem;
+      border-color: red;
+      border-width: 1px;
+      border-style: solid;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+    .w2 {
+      border-width: 2px;
+    }
+  </style>
+<body>
+  <div class="box">375px</div>
+  <div class="box half">5rem (iphone6 375px)</div>
+  <div class="box2">9rem</div>
+  <div class="box2 rem1">1rem</div>
+  <div class="box2 rem2">2rem</div>
+  <div class="box2 rem3">3rem</div>
+  <div class="box2 rem4">4rem</div>
+  <div class="box2 rem5">5rem</div>
+  <div class="box2 rem6">6rem</div>
+  <div class="box2 rem7">7rem</div>
+  <div class="box2 rem8">8rem</div>
+  <div class="box2 rem9">9rem</div>
+  <div class="box2 rem10">10rem</div>
+  <div class="rem">
+    This is REM.
+  </div>
+  <div class="px">
+    This is PX.
+  </div>
+
+  <hr>
+  <div class="box3">
+    7.5rem
+  </div>
+  <div class="border"></div>
+  <div class="border w2"></div>
+</body>
+</html>
