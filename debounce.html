@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>debounce的实现学习</title>
+  <style type="text/css">
+    body {
+      height: 20000px;
+      background: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" onInput="test()" value="debounce" /> 
+
+  <script type="text/javascript">
+    // 弹跳球
+    const debounce = function(fn, delay) {
+      return (function() {
+        const context = this
+        const args = arguments
+        clearTimeout(window.timer)
+
+        window.timer = setTimeout(function() {
+          console.log('debounce')
+          fn.apply(context, args)
+        }, delay)
+      })()
+    }
+
+    // 节流阀
+    const throttle = function(fn, threshhold) {
+      var last
+      var timer
+      threshhold || (threshhold = 250)
+
+      return function () {
+        var context = this
+        var args = arguments
+
+        var now = Date.now()
+        if(last && (now < (last + threshhold))) {
+          clearTimeout(timer)
+
+          timer = setTimeout(function() {
+            last = now
+            fn.apply(context, args)
+          }, threshhold)
+        } else {
+          last = now
+          fn.apply(context, args)
+        }
+      }
+    }
+
+    const test = function () {
+      debounce(function() {
+       console.log('2s后才能出现都考debounce函数')
+      }, 500)
+    }
+
+    window.addEventListener('scroll', throttle(function() {
+      console.log('resize')
+    }, 2000))
+
+  </script>
+</body>
+</html>
