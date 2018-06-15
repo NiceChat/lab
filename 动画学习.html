@@ -348,7 +348,6 @@
       animation-name: slideRight;
       animation-timing-function: ease-in-out;
     }
-
   </style>
 </head>
 <body>
@@ -509,6 +508,11 @@
 
   <hr> 
 
+  <button 
+    onClick="exe()"
+    type="button" 
+    class="btn btn-success">全部给老子执行一遍</button>
+
   <script type="text/javascript">
     var fadeDom = document.querySelectorAll('.item--fade')
     var zoomDom = document.querySelectorAll('.item--zoom')
@@ -610,6 +614,14 @@
       }, 3000)
     }
 
+    const exe = function() {
+      fade()
+      zoom()
+      bounce()
+      flip()
+      rotate()
+      slide()
+    }
   </script>
 </body>
 </html>
