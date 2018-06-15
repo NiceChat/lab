@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>复现各种动画效果。</title>
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style type="text/css">
+    html {
+      padding: 20px;
+    }
+
+    .item {
+      background: #409eff;
+      width: 200px;
+      margin-right: 20px;
+    }
+
+    .item p {
+      text-align: center;
+      font-size: 14px;
+      line-height: 100px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+   /* Fade 
+    -------------------------- */ 
+    .item--fade {
+      opacity: 1;
+    }
+
+    .item--fade-linear.active {
+      opacity: 0;
+      transition: opacity 2000ms linear;
+    }
+
+    .item--fade-in.active {
+      opacity: 0;
+      transition: all 2000ms cubic-bezier(.55,0,.1,1);
+    }
+
+   /* Zoom 
+    -------------------------- */ 
+    @keyframes zoomDownOut {
+      20% {
+        transform: scale3d(0.6, 0.6, 0.6);
+        transform-origin: top center;
+        opacity: 0.6;
+      }
+
+      55% {
+        opacity: 0.1;
+        transform: translate3d(0px, 400px, 0px) scale3d(0.6, 0.6, 0.6); 
+      }
+
+      to {
+        opacity: 0;
+        transform: translate3d(0px, 2000px, 0px) scale3d(0.5, 0.5, 0.5); 
+      }
+    }
+
+    .item--zoom-in-center.active {
+      transform: scaleX(0);
+      opacity: 0;
+      transition: all 2000ms cubic-bezier(.55,0,.1,1);
+    }
+
+    .item--zoom-in-top.active {
+      transform: scaleY(0);
+      opacity: 0;
+      transform-origin: center top;
+      transition: transform 2000ms cubic-bezier(0.23, 1, 0.32, 1), opacity 2000ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .item--zoom-in-bottom.active {
+      transform: scaleY(0);
+      opacity: 0;
+      transform-origin: center bottom;
+      transition: transform 2000ms cubic-bezier(0.23, 1, 0.32, 1), opacity 2000ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .item--zoom-down-out.active {
+      animation-duration: 2s;
+      animation-name: zoomDownOut;
+    }
+
+   /* Bounce 
+    -------------------------- */ 
+    @keyframes bounceOut {
+      20% {
+        transform: scale3d(0.9, 0.9, 0.9);
+      }
+
+      50%,
+      55% {
+        opacity: 1;
+        transform: scale3d(1.1, 1.1, 1.1);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+      }
+    }
+
+    .item--bounce-out.active {
+      animation-duration: 2s;
+      animation-name: bounceOut;
+    }
+
+    @keyframes bounceOutUp {
+      20% {
+        opacity: 1;
+        transform: translate3d(0px, 20px, 0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translate3d(0px, -2000px, 0);
+      }
+    }
+
+    .item--bounce-out-up.active {
+      animation-duration: 2s;
+      animation-name: bounceOutUp;
+    }
+
+    @keyframes bounceOutLeft {
+      20% {
+        opacity: 1;
+        transform: translate3d(20px, 0px, 0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translate3d(-2000px, 0px, 0);
+      }
+    }
+
+    .item--bounce-out-left.active {
+      animation-duration: 2s;
+      animation-name: bounceOutLeft;
+    }
+
+   /* Filp 
+   * 1. filp 可以理解为现将元素z轴倒转，然后把可视拉高 调节旋转和位移实现翻转的功能。
+   * 2. filpX 就直接沿X轴在旋转
+   * 3. filpY 就直接沿Y轴在旋转
+    -------------------------- */ 
+    @keyframes flip {
+      from {
+        transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+        animation-timing-function: ease-out;
+      }
+
+      40% {
+        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+        animation-timing-function: ease-out;
+      }
+
+      50% {
+        transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+        animation-timing-function: ease-in;
+      }
+
+      80% {
+        transform: perspective(400px) scale3d(0.95, 0.95, 0.95);
+        animation-timing-function: ease-in;
+      }
+
+      to {
+        transform: perspective(400px);
+        animation-timing-function: ease-in;
+      }
+    }
+
+
+    @keyframes flipX {
+      from {
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+        animation-timing-function: ease-in;
+        opacity: 0;
+      }
+
+      40% {
+        transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+        animation-timing-function: ease-in;
+      }
+
+      60% {
+        transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+        opacity: 1;
+      }
+
+      80% {
+        transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+      }
+
+      to {
+        transform: perspective(400px);
+      }
+    }
+
+
+    @keyframes flipY {
+      from {
+        transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+        animation-timing-function: ease-in;
+        opacity: 0;
+      }
+
+      40% {
+        transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+        animation-timing-function: ease-in;
+      }
+
+      60% {
+        transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+        opacity: 1;
+      }
+
+      80% {
+        transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+      }
+
+      to {
+        transform: perspective(400px);
+      }
+    }
+
+    .item--flip-self.active {
+      backface-visibility: visible;
+      animation-duration: 2s;
+      animation-name: flip;
+    }
+
+    .item--flip-x.active {
+      backface-visibility: visible;
+      animation-duration: 2s;
+      animation-name: flipX;
+      transform-origin: top center;
+    }
+
+    .item--flip-y.active {
+      backface-visibility: visible;
+      animation-duration: 2s;
+      animation-name: flipY;
+    }
+
+    /* Rotate 
+    -------------------------- */ 
+    @keyframes rotate {
+      from {
+        transform-origin: center;
+        transform: rotate3d(0, 0, 1, -200deg);
+        opacity: 0;
+      }
+
+      to {
+        transform-origin: center;
+        transform: rotate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes rotateDown {
+      from {
+        transform-origin: left bottom;
+        transform: rotate3d(0, 0, 1, -30deg);
+        opacity: 0;
+      }
+
+      to {
+        transform-origin: left bottom;
+        transform: rotate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes rotateDownFade {
+      from {
+        transform-origin: left bottom;
+        transform: rotate3d(0, 0, 1, 0deg);
+        opacity: 1;
+      }
+
+      to {
+        transform-origin: left bottom;
+        transform: rotate3d(0, 0, 1, 30deg);
+        opacity: 0;
+      }
+    }
+
+    .item--rotate-self.active {
+      animation-duration: 2s;
+      animation-name: rotate;
+    } 
+
+    .item--rotate-down.active {
+      animation-duration: 2s;
+      animation-name: rotateDown;
+    } 
+
+    .item--rotate-down-fade.active {
+      animation-duration: 2s;
+      animation-name: rotateDownFade;
+    }
+
+    /* Slide 
+    -------------------------- */ 
+    @keyframes slideDown {
+      from {
+        transform: translate3d(0, -200px, 0);
+        opacity: 0;
+      }
+
+      to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideRight {
+      from {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+
+      10% {
+        transform: translate3d(-20px, 0, 0);
+        opacity: 0.9;
+      }
+
+      to {
+        transform: translate3d(200px, 0, 0);
+        opacity: 0;
+      }
+    }
+
+    .item--slide-down.active {
+      animation-duration: 2s;
+      animation-name: slideDown;
+    }
+
+    .item--slide-right.active {
+      animation-duration: 2s;
+      animation-name: slideRight;
+      animation-timing-function: ease-in-out;
+    }
+
+  </style>
+</head>
+<body>
+  <h2>这个案列是学习使用各种动画效果的，以后工作中遇到可以来查阅。参考Animate.css</h2> 
+
+  <h3>
+    1. Fade
+    <button 
+      onClick="fade()"
+      type="button" 
+      class="btn btn-primary">执行</button>
+  </h3>
+
+  <div style="display: flex; height: 100px;">
+    <div 
+      class="item item--fade item--fade-linear">
+      <p>fade-linear</p> 
+    </div> 
+
+    <div 
+      class="item item--fade item--fade-in">
+      <p>fade-in</p> 
+    </div> 
+  </div>
+
+  <hr>
+
+  <h3>
+    2. Zoom 
+    <button 
+      onClick="zoom()"
+      type="button" 
+      class="btn btn-primary">执行</button>
+  </h3>
+
+  <div style="display: flex; height: 100px;">
+    <div 
+      class="item item--zoom item--zoom-in-center">
+      <p>zoom-in-center</p> 
+    </div> 
+
+    <div 
+      class="item item--zoom item--zoom-in-top">
+      <p>zoom-in-top</p> 
+    </div> 
+
+    <div 
+      class="item item--zoom item--zoom-in-bottom">
+      <p>zoom-in-bottom</p> 
+    </div> 
+
+    <div 
+      class="item item--zoom item--zoom-down-out">
+      <p>zoom-down-out</p> 
+    </div> 
+  </div>
+
+  <hr>
+
+  <h3>
+    3. Bounce 
+    <button 
+      onClick="bounce()"
+      type="button" 
+      class="btn btn-primary">执行</button>
+  </h3>
+
+  <div style="display: flex; height: 100px;">
+    <div 
+      class="item item--bounce item--bounce-out">
+      <p>bounce-out</p> 
+    </div> 
+    <div 
+      class="item item--bounce item--bounce-out-up">
+      <p>bounce-out-up</p> 
+    </div> 
+    <div 
+      class="item item--bounce item--bounce-out-left">
+      <p>bounce-out-left</p> 
+    </div> 
+  </div>
+
+  <hr>
+
+  <h3>
+    4. Flip 
+    <button 
+      onClick="flip()"
+      type="button" 
+      class="btn btn-primary">执行</button>
+  </h3>
+
+  <div style="display: flex; height: 100px;">
+    <div 
+      class="item item--flip item--flip-self">
+      <p>flip</p> 
+    </div> 
+
+    <div 
+      class="item item--flip item--flip-x">
+      <p>flip-x</p> 
+    </div> 
+
+    <div 
+      class="item item--flip item--flip-y">
+      <p>flip-y</p> 
+    </div> 
+  </div>
+
+  <hr>
+
+  <h3>
+    5. Rotate 
+    <button 
+      onClick="rotate()"
+      type="button" 
+      class="btn btn-primary">执行</button>
+  </h3>
+
+  <div style="display: flex; height: 100px;">
+    <div 
+      class="item item--rotate item--rotate-self">
+      <p>rotate</p> 
+    </div> 
+
+    <div 
+      class="item item--rotate item--rotate-down">
+      <p>rotate-down</p> 
+    </div> 
+    
+    <div 
+      class="item item--rotate item--rotate-down-fade">
+      <p>rotate-down-fade</p> 
+    </div> 
+  </div>
+
+  <hr>
+  
+  <h3>
+    6. slide
+    <button 
+      onClick="slide()"
+      type="button" 
+      class="btn btn-primary">执行</button>
+  </h3>
+
+  <div style="display: flex; height: 100px;">
+    <div 
+      class="item item--slide item--slide-down">
+      <p>slide-down</p> 
+    </div> 
+
+    <div 
+      class="item item--slide item--slide-right">
+      <p>slide-right</p> 
+    </div> 
+  </div>
+
+  <hr> 
+
+  <script type="text/javascript">
+    var fadeDom = document.querySelectorAll('.item--fade')
+    var zoomDom = document.querySelectorAll('.item--zoom')
+    var bounceDom = document.querySelectorAll('.item--bounce')
+    var flipDom = document.querySelectorAll('.item--flip')
+    var rotateDom = document.querySelectorAll('.item--rotate')
+    var slideDom = document.querySelectorAll('.item--slide')
+
+    // 淡入淡出 
+    const fade = function() {
+      var fadeLinear = fadeDom[0].classList
+      var fadeIn = fadeDom[1].classList
+      fadeLinear.add('active')
+      fadeIn.add('active')
+
+      setTimeout(function() {
+        fadeLinear.remove('active')
+        fadeIn.remove('active')
+      }, 3000)
+    }
+
+    // 缩放
+    const zoom = function() {
+      var zoomInCenter = zoomDom[0].classList
+      var zoomInTop = zoomDom[1].classList
+      var zoomInBottom = zoomDom[2].classList
+      var zoomOutBottom = zoomDom[3].classList
+      zoomInCenter.add('active')
+      zoomInTop.add('active')
+      zoomInBottom.add('active')
+      zoomOutBottom.add('active')
+
+      setTimeout(function() {
+        zoomInCenter.remove('active')
+        zoomInTop.remove('active')
+        zoomInBottom.remove('active')
+        zoomOutBottom.remove('active')
+      }, 3000)
+    }
+
+    // 弹跳
+    const bounce = function() {
+      var bounceOut = bounceDom[0].classList
+      var bounceOutUp = bounceDom[1].classList
+      var bounceOutLeft = bounceDom[2].classList
+      bounceOut.add('active')
+      bounceOutUp.add('active')
+      bounceOutLeft.add('active')
+
+      setTimeout(function() {
+        bounceOut.remove('active')
+        bounceOutUp.remove('active')
+        bounceOutLeft.remove('active')
+      }, 3000)
+    }
+
+    // 翻转
+    const flip = function() {
+      var flip = flipDom[0].classList
+      var flipX = flipDom[1].classList
+      var flipY = flipDom[2].classList
+      flip.add('active')
+      flipX.add('active')
+      flipY.add('active')
+
+      setTimeout(function() {
+        flip.remove('active')
+        flipX.remove('active')
+        flipY.remove('active')
+      }, 3000)
+    }
+
+    // 旋转
+    const rotate = function() {
+      var rotate = rotateDom[0].classList
+      var rotateDown = rotateDom[1].classList
+      var rotateDownFade = rotateDom[2].classList
+      rotate.add('active')
+      rotateDown.add('active')
+      rotateDownFade.add('active')
+
+      setTimeout(function() {
+        rotate.remove('active')
+        rotateDown.remove('active')
+        rotateDownFade.remove('active')
+      }, 3000)
+    }
+
+    // 滑动
+    const slide = function() {
+      var slideDown = slideDom[0].classList
+      var slideRight = slideDom[1].classList
+      slideDown.add('active')
+      slideRight.add('active')
+
+      setTimeout(function() {
+        slideDown.remove('active')
+        slideRight.remove('active')
+      }, 3000)
+    }
+
+  </script>
+</body>
+</html>
